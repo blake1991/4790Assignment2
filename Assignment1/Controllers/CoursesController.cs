@@ -17,7 +17,7 @@ namespace Assignment1.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-            return View(db.courses.ToList());
+            return View(BasicSchool.getAllCourses());
         }
 
         // GET: Courses/Details/5
