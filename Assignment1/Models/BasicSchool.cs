@@ -24,7 +24,7 @@ namespace Assignment1.Models
         [Key]
         public int Id { get; set; }
 
-        [DisplayName("Course Number")]
+        [DisplayName("Course Number")] //test
         [RegularExpression("[a-zA-Z][a-zA-Z][0-9]*")]
         public string courseNumber { get; set; }
 
