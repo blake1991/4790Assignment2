@@ -16,6 +16,43 @@ namespace Assignment1.Models
             BasicSchoolDbContext db = new BasicSchoolDbContext();
             return db.courses.ToList();
         }
+
+        public static Course getCourse(int? id)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+            Course course = db.courses.Find(id);
+            return course;
+        }
+
+        public static void addCourse(Course course)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+
+            db.courses.Add(course);
+            db.SaveChanges();
+        }
+
+        public static void editCourse(Course course)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+
+            db.Entry(course).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public static void deleteCourse(Course course)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+
+            db.courses.Remove(course);
+            db.SaveChanges();
+        }
+
+        public static void Dispose()
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+            db.Dispose();
+        }
     }
 
     [Table("Course")] //tells entityframework from looking for wrong table
@@ -24,7 +61,7 @@ namespace Assignment1.Models
         [Key]
         public int Id { get; set; }
 
-        [DisplayName("Course Number")] //test
+        [DisplayName("Course Number")] 
         [RegularExpression("[a-zA-Z][a-zA-Z][0-9]*")]
         public string courseNumber { get; set; }
 

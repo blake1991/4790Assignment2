@@ -158,6 +158,7 @@
     </Compile>
     <Compile Include="Models\BasicSchool.cs" />
     <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\View Models\CourseAndSections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

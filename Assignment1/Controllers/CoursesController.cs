@@ -12,12 +12,12 @@ namespace Assignment1.Controllers
 {
     public class CoursesController : Controller
     {
-        private BasicSchoolDbContext db = new BasicSchoolDbContext();
+       // private BasicSchoolDbContext db = new BasicSchoolDbContext();
 
         // GET: Courses
         public ActionResult Index()
         {
-            return View(BasicSchool.getAllCourses());
+            return View(Repository.getAllCourses());
         }
 
         // GET: Courses/Details/5
@@ -27,7 +27,9 @@ namespace Assignment1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.courses.Find(id);
+
+            Course course = Repository.getCourse(id);
+
             if (course == null)
             {
                 return HttpNotFound();
@@ -50,8 +52,7 @@ namespace Assignment1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.courses.Add(course);
-                db.SaveChanges();
+                Repository.addCourse(course);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +66,10 @@ namespace Assignment1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.courses.Find(id);
+
+            // Course course = db.courses.Find(id);
+            Course course = Repository.getCourse(id);
+
             if (course == null)
             {
                 return HttpNotFound();
@@ -82,8 +86,7 @@ namespace Assignment1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
+                Repository.editCourse(course);
                 return RedirectToAction("Index");
             }
             return View(course);
@@ -96,7 +99,7 @@ namespace Assignment1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.courses.Find(id);
+            Course course = Repository.getCourse(id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -109,9 +112,9 @@ namespace Assignment1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.courses.Find(id);
-            db.courses.Remove(course);
-            db.SaveChanges();
+            //Course course = db.courses.Find(id);
+            Course course = Repository.getCourse(id);
+            Repository.deleteCourse(course);
             return RedirectToAction("Index");
         }
 
@@ -119,7 +122,8 @@ namespace Assignment1.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //  db.Dispose();
+                Repository.Dispose();
             }
             base.Dispose(disposing);
         }
