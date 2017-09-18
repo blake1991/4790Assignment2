@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Assignment1.Models;
+using Assignment1.Models.View_Models;
 
 namespace Assignment1.Controllers
 {
@@ -117,6 +118,18 @@ namespace Assignment1.Controllers
             Repository.deleteCourse(course);
             return RedirectToAction("Index");
         }
+
+        public ActionResult CourseAndSection(int id)
+        {
+            CourseAndSections cs = new CourseAndSections
+            {
+                course = Repository.getCourse(id),
+                sections = Repository.courseSections(Repository.getCourse(id).courseNumber)
+            };
+
+            return View(cs);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

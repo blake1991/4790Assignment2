@@ -49,6 +49,51 @@ namespace Assignment1.Models
             db.SaveChanges();
         }
 
+        public static List<Section> getAllSections()
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+            return db.sections.ToList();
+        }
+
+        public static Section getSection(int? id)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+            Section section = db.sections.Find(id);
+            return section;
+        }
+
+        public static void addSection(Section section)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+
+            db.sections.Add(section);
+            db.SaveChanges();
+        }
+
+        public static void editSection(Section section)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+
+            db.Entry(section).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public static void deleteSection(Section section)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+
+            db.sections.Attach(section);
+            db.sections.Remove(section);
+            db.SaveChanges();
+        }
+
+        public static List<Section> courseSections(string courseNumber)
+        {
+            BasicSchoolDbContext db = new BasicSchoolDbContext();
+
+            return db.sections.Where(x => x.courseNumber == courseNumber).ToList();
+        }
+
         public static void Dispose()
         {
             BasicSchoolDbContext db = new BasicSchoolDbContext();

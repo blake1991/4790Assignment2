@@ -33,6 +33,37 @@ namespace Assignment1.Models
             BasicSchool.deleteCourse(course);
         }
 
+        public static Section getSection(int? id)
+        {
+            Section section = BasicSchool.getSection(id);
+            return section;
+        }
+
+        public static List<Section> getAllSections()
+        {
+            return BasicSchool.getAllSections();
+        }
+
+        public static void addSection(Section section)
+        {
+            BasicSchool.addSection(section);
+        }
+
+        public static void editSection(Section section)
+        {
+            BasicSchool.editSection(section);
+        }
+
+        public static void deleteSection(Section section)
+        {
+            BasicSchool.deleteSection(section);
+        }
+
+        public static List<Section> courseSections(string courseNumber)
+        {
+            return BasicSchool.courseSections(courseNumber);
+        }
+
         public static void Dispose()
         {
             BasicSchool.Dispose();

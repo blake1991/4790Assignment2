@@ -12,12 +12,12 @@ namespace Assignment1.Controllers
 {
     public class SectionsController : Controller
     {
-        private BasicSchoolDbContext db = new BasicSchoolDbContext();
+        //private BasicSchoolDbContext db = new BasicSchoolDbContext();
 
         // GET: Sections
         public ActionResult Index()
         {
-            return View(db.sections.ToList());
+            return View(Repository.getAllSections());
         }
 
         // GET: Sections/Details/5
@@ -27,7 +27,8 @@ namespace Assignment1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Section section = db.sections.Find(id);
+            //Section section = db.sections.Find(id);
+            Section section = Repository.getSection(id);
             if (section == null)
             {
                 return HttpNotFound();
@@ -50,8 +51,9 @@ namespace Assignment1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.sections.Add(section);
-                db.SaveChanges();
+                //db.sections.Add(section);
+                //db.SaveChanges();
+                Repository.addSection(section);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +67,8 @@ namespace Assignment1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Section section = db.sections.Find(id);
+            //Section section = db.sections.Find(id);
+            Section section = Repository.getSection(id);
             if (section == null)
             {
                 return HttpNotFound();
@@ -82,8 +85,9 @@ namespace Assignment1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(section).State = EntityState.Modified;
-                db.SaveChanges();
+                // db.Entry(section).State = EntityState.Modified;
+                // db.SaveChanges();
+                Repository.editSection(section);
                 return RedirectToAction("Index");
             }
             return View(section);
@@ -96,7 +100,8 @@ namespace Assignment1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Section section = db.sections.Find(id);
+            // Section section = db.sections.Find(id);
+            Section section = Repository.getSection(id);
             if (section == null)
             {
                 return HttpNotFound();
@@ -109,9 +114,12 @@ namespace Assignment1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Section section = db.sections.Find(id);
-            db.sections.Remove(section);
-            db.SaveChanges();
+            // Section section = db.sections.Find(id);
+            //db.sections.Remove(section);
+           // db.SaveChanges();
+            Section section = Repository.getSection(id);
+            Repository.deleteSection(section);
+
             return RedirectToAction("Index");
         }
 
@@ -119,7 +127,8 @@ namespace Assignment1.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                Repository.Dispose();
             }
             base.Dispose(disposing);
         }
