@@ -44,6 +44,7 @@ namespace Assignment1.Models
         {
             BasicSchoolDbContext db = new BasicSchoolDbContext();
 
+            db.courses.Attach(course);
             db.courses.Remove(course);
             db.SaveChanges();
         }
